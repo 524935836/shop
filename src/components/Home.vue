@@ -11,8 +11,8 @@ export default {
     logout() {
       window.sessionStorage.clear('token')
       this.$router.push('/login')
-    },
-  },
+    }
+  }
 }
 </script>
 
