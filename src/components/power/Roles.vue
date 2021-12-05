@@ -199,10 +199,6 @@ export default {
 .el-tag {
   margin: 10px;
 }
-// 为展开列添加外边距
-.expandMargin {
-  margin: 0 50px;
-}
 .bdtop {
   border-top: 1px solid #eee;
 }

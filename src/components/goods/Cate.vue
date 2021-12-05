@@ -84,7 +84,6 @@
             :props="cascaderProps"
             @change="parentCateChanged"
             clearable
-            class="el-cascader-menu"
           >
           </el-cascader>
         </el-form-item>

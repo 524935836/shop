@@ -20,3 +20,6 @@ body,
 .el-scrollbar__wrap {
   height: 300px !important;
 }
+.el-table__expanded-cell {
+  padding: 12px 50px !important;
+}
