@@ -24,11 +24,7 @@
           :default-active="activePath"
         >
           <!-- 一级菜单 -->
-          <el-submenu
-            :index="item.id + ''"
-            v-for="item in menuList"
-            :key="item.id"
-          >
+          <el-submenu :index="item.id + ''" v-for="item in menuList" :key="item.id">
             <template slot="title">
               <i :class="iconsObj[item.id]"></i>
               <span>{{ item.authName }}</span>
@@ -39,6 +35,7 @@
               v-for="subItem in item.children"
               :key="subItem.id"
               @click="saveNavState(subItem.path)"
+              :route="`/home/${subItem.path}`"
             >
               <template slot="title">
                 <i class="el-icon-menu"></i>
