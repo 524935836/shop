@@ -17,7 +17,7 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 
 import axios from 'axios'
 // 配置请求路径
-axios.defaults.baseURL = 'http://127.0.0.1:8888/api/private/v1/'
+axios.defaults.baseURL = 'https://lianghj.top:8888/api/private/v1/'
 // 添加请求头字段
 axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
