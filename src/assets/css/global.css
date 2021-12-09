@@ -20,6 +20,10 @@ body,
 .el-scrollbar__wrap {
   height: 300px !important;
 }
+/* .el-cascader-menu__wrap,
+.el-scrollbar__wrap {
+  height: 290px !important;
+} */
 .el-table__expanded-cell {
   padding: 12px 50px !important;
 }
