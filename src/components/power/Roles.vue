@@ -39,12 +39,9 @@
                   :class="[i2 === 0 ? '' : 'bdtop', 'vcenter']"
                 >
                   <el-col :span="6">
-                    <el-tag
-                      type="success"
-                      closable
-                      @close="removeRightById(row, item2.id)"
-                      >{{ item2.authName }}</el-tag
-                    >
+                    <el-tag type="success" closable @close="removeRightById(row, item2.id)">{{
+                      item2.authName
+                    }}</el-tag>
                     <i class="el-icon-caret-right"></i>
                   </el-col>
                   <!-- 渲染三级权限 -->
@@ -247,15 +244,11 @@ export default {
     },
     // 根据id删除权限
     async removeRightById(role, rightId) {
-      const confirmResult = await this.$confirm(
-        '此操作将永久删除该权限, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).catch((err) => err)
+      const confirmResult = await this.$confirm('此操作将永久删除该权限, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch((err) => err)
       if (confirmResult !== 'confirm') return this.$message.info('取消了该操作')
       // 返回当前角色下最新权限
       const { data: res } = await this.$http.delete(`roles/${role.id}/rights/${rightId}`)
@@ -309,7 +302,6 @@ export default {
       this.$refs.addRolesForm.validate(async (valid) => {
         if (!valid) return
         const { data: res } = await this.$http.post('roles', this.addRolesForm)
-        console.log(res)
         if (res.meta.status !== 201) {
           return this.$message.error('添加角色失败!')
         }
