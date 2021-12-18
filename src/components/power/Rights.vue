@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>权限管理</el-breadcrumb-item>
-      <el-breadcrumb-item>权限列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="权限管理" name2="权限列表"></Breadcrumb>
     <!-- 卡片内容 -->
     <el-card>
       <!-- 权限管理列表区域,table表格 -->
@@ -26,6 +22,8 @@
 </template>
 
 <script>
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
+
 export default {
   name: 'Rights',
   data() {
@@ -37,6 +35,7 @@ export default {
     // 调用用户权限管理列表
     this.getRightsList()
   },
+  components: { Breadcrumb },
   methods: {
     // 获取权限管理列表
     async getRightsList() {

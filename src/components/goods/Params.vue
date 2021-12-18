@@ -1,20 +1,11 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>参数列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="商品管理" name2="参数列表"></Breadcrumb>
     <!-- 卡片内容 -->
     <el-card>
       <!-- 警告区域 -->
-      <el-alert
-        title="警告提示的文案"
-        type="warning"
-        :closable="false"
-        show-icon
-      ></el-alert>
+      <el-alert title="警告提示的文案" type="warning" :closable="false" show-icon></el-alert>
       <!-- 选择商品分类区域 -->
       <el-row class="cat_opt">
         <el-col :span="3">
@@ -67,11 +58,7 @@
                 >
                 </el-input>
                 <!-- 按钮 -->
-                <el-button
-                  v-else
-                  class="button-new-tag"
-                  size="small"
-                  @click="showInput(row)"
+                <el-button v-else class="button-new-tag" size="small" @click="showInput(row)"
                   >+ New Tag</el-button
                 >
               </template>
@@ -132,11 +119,7 @@
                 >
                 </el-input>
                 <!-- 按钮 -->
-                <el-button
-                  v-else
-                  class="button-new-tag"
-                  size="small"
-                  @click="showInput(row)"
+                <el-button v-else class="button-new-tag" size="small" @click="showInput(row)"
                   >+ New Tag</el-button
                 >
               </template>
@@ -215,6 +198,8 @@
 </template>
 
 <script>
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
+
 export default {
   name: 'Params',
   data() {
@@ -253,6 +238,7 @@ export default {
   created() {
     this.getCateList()
   },
+  components: { Breadcrumb },
   methods: {
     // 获取所有商品分类
     async getCateList() {
@@ -307,13 +293,10 @@ export default {
     addParams() {
       this.$refs.addParamsFormRef.validate(async (valid) => {
         if (!valid) return
-        const { data: res } = await this.$http.post(
-          `categories/${this.cateId}/attributes`,
-          {
-            attr_name: this.addParamsForm.attr_name,
-            attr_sel: this.activeName
-          }
-        )
+        const { data: res } = await this.$http.post(`categories/${this.cateId}/attributes`, {
+          attr_name: this.addParamsForm.attr_name,
+          attr_sel: this.activeName
+        })
         if (res.meta.status !== 201) return this.$message.error('添加参数失败')
         this.getParamsList()
         this.$message.success('添加参数成功')
@@ -350,15 +333,11 @@ export default {
     },
     // 删除参数
     async removeParams(attrid) {
-      const confirmResult = await this.$confirm(
-        '此操作将永久删除该参数, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).catch((err) => err)
+      const confirmResult = await this.$confirm('此操作将永久删除该参数, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch((err) => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除')
       const { data: res } = await this.$http.delete(
         `categories/${this.cateId}/attributes/${attrid}`

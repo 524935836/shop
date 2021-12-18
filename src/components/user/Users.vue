@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="用户管理" name2="用户列表"></Breadcrumb>
     <!-- 卡片内容 -->
     <el-card class="box-card">
       <!-- 搜索和添加 -->
@@ -17,11 +13,7 @@
             clearable
             @clear="getUserList"
           >
-            <el-button
-              slot="append"
-              icon="el-icon-search"
-              @click="getUserList"
-            ></el-button>
+            <el-button slot="append" icon="el-icon-search" @click="getUserList"></el-button>
           </el-input>
         </el-col>
         <el-col :span="5">
@@ -38,8 +30,7 @@
         <!-- 作用域插槽获取一行的信息 -->
         <el-table-column label="状态">
           <template v-slot:default="{ row }">
-            <el-switch v-model="row.mg_state" @change="userStateChanged(row)">
-            </el-switch>
+            <el-switch v-model="row.mg_state" @change="userStateChanged(row)"> </el-switch>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="180px">
@@ -58,12 +49,7 @@
               @click="removeUserById(row.id)"
             ></el-button>
             <!-- 文字提示 -->
-            <el-tooltip
-              effect="dark"
-              content="分配角色"
-              placement="top"
-              :enterable="false"
-            >
+            <el-tooltip effect="dark" content="分配角色" placement="top" :enterable="false">
               <el-button
                 type="warning"
                 icon="el-icon-setting"
@@ -173,6 +159,8 @@
 </template>
 
 <script>
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
+
 export default {
   name: 'Users',
   data() {
@@ -183,8 +171,7 @@ export default {
       callback(new Error('请输入合法的邮箱'))
     }
     var checkMobile = (rule, value, callback) => {
-      const mobileReg =
-        /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
+      const mobileReg = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
       if (mobileReg.test(value)) return callback()
       callback(new Error('请输入合法的手机号'))
     }
@@ -255,6 +242,7 @@ export default {
   created() {
     this.getUserList()
   },
+  components: { Breadcrumb },
   methods: {
     // 获取用户列表数据
     async getUserList() {
@@ -338,15 +326,11 @@ export default {
     // 删除用户
     async removeUserById(id) {
       // 确认消息，调用cofirm
-      const confirmResult = await this.$confirm(
-        '此操作将永久删除该用户, 是否继续?',
-        '提示',
-        {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }
-      ).catch((err) => err)
+      const confirmResult = await this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch((err) => err)
       if (confirmResult !== 'confirm') return this.$message.info('已取消删除')
       // 发送请求删除用户
       const { data: res } = await this.$http.delete(`users/${id}`)

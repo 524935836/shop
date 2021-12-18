@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>数据统计</el-breadcrumb-item>
-      <el-breadcrumb-item>数据报表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="数据统计" name2="数据报表"></Breadcrumb>
     <el-card>
       <!-- 为 ECharts 准备一个定义了宽高的 DOM -->
       <div id="main" style="width: 750px; height: 400px"></div>
@@ -16,6 +12,7 @@
 <script>
 import * as echarts from 'echarts'
 import _ from 'lodash'
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
 
 export default {
   name: 'Report',
@@ -55,6 +52,7 @@ export default {
     }
   },
   created() {},
+  components: { Breadcrumb },
   async mounted() {
     // 基于准备好的dom，初始化echarts实例
     var myChart = echarts.init(document.getElementById('main'))

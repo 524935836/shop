@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品分类</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="商品管理" name2="商品分类"></Breadcrumb>
     <!-- 卡片内容 -->
     <el-card>
       <!-- 添加分类 -->
@@ -122,6 +118,8 @@
 </template>
 
 <script>
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
+
 export default {
   name: 'Cate',
   data() {
@@ -194,6 +192,7 @@ export default {
   created() {
     this.getCateList()
   },
+  components: { Breadcrumb },
   methods: {
     // 获取商品分类
     async getCateList() {

@@ -1,11 +1,7 @@
 <template>
   <div>
     <!-- 面包屑区域 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-      <el-breadcrumb-item>商品列表</el-breadcrumb-item>
-    </el-breadcrumb>
+    <Breadcrumb name1="商品管理" name2="商品列表"></Breadcrumb>
     <!-- 卡片内容 -->
     <el-card>
       <el-row :gutter="20">
@@ -116,6 +112,7 @@
 
 <script>
 import _ from 'lodash'
+import Breadcrumb from '../content/breadcrumb/Breadcrumb.vue'
 
 export default {
   name: 'GoodsList',
@@ -151,6 +148,7 @@ export default {
   created() {
     this.getGoodsList()
   },
+  components: { Breadcrumb },
   methods: {
     // 获取商品列表
     async getGoodsList() {
